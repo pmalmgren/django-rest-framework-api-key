@@ -2,6 +2,8 @@ from rest_framework import authentication
 from rest_framework import exceptions
 from rest_framework_api_key.models import APIKey
 
+from django.contrib.auth.models import AnonymousUser
+
 
 class ApiKeyAuthentication(authentication.BaseAuthentication):
 
@@ -15,4 +17,4 @@ class ApiKeyAuthentication(authentication.BaseAuthentication):
         except APIKey.DoesNotExist:
             raise exceptions.AuthenticationFailed('No such API key')
 
-        return None, api_key
+        return AnonymousUser(), api_key
